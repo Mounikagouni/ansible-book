@@ -1,0 +1,18 @@
+---
+- hosts: server3.abc.com
+  user: mounika
+  become: yes
+  connection: ssh
+  tasks:
+    - name: this is for installing
+      yum: name=vsftpd state=installed
+      tags:
+              - "installing"
+    - name: copying local file
+      copy: src=file3 dest=/var/ftp/pub
+      tags:
+              - "copying"
+    - name: restarting service
+      service: name=vsftpd state=started  
+      tags:
+              - "restarting"
